@@ -14,7 +14,6 @@ export default function Home() {
     setDentists(data);
     setLoading(false);
   };
-  console.log(dentists);
 
   useEffect(() => {
     getDentists();
@@ -29,6 +28,7 @@ export default function Home() {
       }}
     >
       <h1>Home</h1>
+
       {dentists && !loading ? (
         <div className="card-grid">
           {dentists.map((dentist) => (
@@ -41,7 +41,7 @@ export default function Home() {
           ))}
         </div>
       ) : (
-        <p style={{ fontSize: "36px" }}>Cargando dentistas...</p>
+        <p style={{ fontSize: "2rem" }}>Cargando dentistas...</p>
       )}
     </main>
   );
