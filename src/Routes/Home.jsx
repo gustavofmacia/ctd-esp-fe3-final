@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+//
+
+//
 import Card from "../Components/Card";
 // import { useGlobalStates } from "../Context/global-context";
 
@@ -20,14 +23,10 @@ export default function Home() {
   }, []);
 
   return (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <h1>Home</h1>
+    <main>
+      <div>
+        <h1>Inicio</h1>
+      </div>
 
       {dentists && !loading ? (
         <div className="card-grid">

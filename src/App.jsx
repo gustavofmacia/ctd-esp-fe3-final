@@ -16,7 +16,7 @@ export default function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/dentista/:id" element={<Detail />}></Route>
         <Route path="/contacto" element={<Contact />}></Route>
-        <Route path="/favoritos" element={<Favs />}></Route>
+        <Route path="/destacados" element={<Favs />}></Route>
       </Routes>
       <Footer />
     </div>
