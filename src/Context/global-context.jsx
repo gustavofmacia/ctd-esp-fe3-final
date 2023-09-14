@@ -1,23 +1,43 @@
 import PropTypes from "prop-types";
 //
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 ContextProvider.propTypes = {
   children: PropTypes.element,
 };
 
-const initialState = { theme: "", data: [] };
-
-export const ContextGlobal = createContext(initialState);
+const ContextGlobal = createContext();
 
 export default function ContextProvider({ children }) {
-  const [dentits, setDentits] = useState(null);
+  const [dentists, setDentists] = useState(null);
   const [favs, setFavs] = useState(null);
   const [theme, setTheme] = useState(null);
-  //Aqui deberan implementar la logica propia del Context, utilizando el hook useMemo
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) =>
+        res.json().then((data) => {
+          setDentists(data);
+        })
+      )
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <ContextGlobal.Provider value={{ dentits, setDentits }}>
+    <ContextGlobal.Provider
+      value={{
+        dentists,
+        setDentists,
+        favs,
+        setFavs,
+        theme,
+        setTheme,
+        loading,
+        setLoading,
+      }}
+    >
       {children}
     </ContextGlobal.Provider>
   );

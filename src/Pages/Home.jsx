@@ -1,26 +1,11 @@
-import { useEffect, useState } from "react";
-//
-
+import { useGlobalStates } from "../Context/global-context";
 //
 import Card from "../Components/Card";
-// import { useGlobalStates } from "../Context/global-context";
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
 export default function Home() {
-  const [dentists, setDentists] = useState();
-  const [loading, setLoading] = useState(true);
-
-  const getDentists = async () => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
-    const data = await res.json();
-    setDentists(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getDentists();
-  }, []);
+  const { dentists, loading } = useGlobalStates();
 
   return (
     <main>
@@ -40,7 +25,9 @@ export default function Home() {
           ))}
         </div>
       ) : (
-        <p style={{ fontSize: "2rem" }}>Cargando dentistas...</p>
+        <p style={{ fontSize: "2rem", margin: "30vh" }}>
+          Cargando dentistas...
+        </p>
       )}
     </main>
   );
