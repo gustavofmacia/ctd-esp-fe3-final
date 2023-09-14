@@ -12,6 +12,8 @@ export const ContextGlobal = createContext(initialState);
 
 export default function ContextProvider({ children }) {
   const [dentits, setDentits] = useState(null);
+  const [favs, setFavs] = useState(null);
+  const [theme, setTheme] = useState(null);
   //Aqui deberan implementar la logica propia del Context, utilizando el hook useMemo
 
   return (
