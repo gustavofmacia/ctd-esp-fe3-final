@@ -48,7 +48,7 @@ a:hover {
 
 footer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   text-align: center;
   padding: 2rem;
   position: relative;
@@ -62,8 +62,11 @@ footer > img {
   margin: 0;
 }
 
-footer .iconos > img {
-  width: 40px;
+footer .iconos {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 30px;
 }
 
 form {
