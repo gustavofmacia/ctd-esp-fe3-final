@@ -16,12 +16,7 @@ export default function Home() {
       {dentists && !loading ? (
         <div className="card-grid">
           {dentists.map((dentist) => (
-            <Card
-              key={dentist.id}
-              id={dentist.id}
-              name={dentist.name}
-              username={dentist.username}
-            />
+            <Card key={dentist.id} dentist={dentist} />
           ))}
         </div>
       ) : (

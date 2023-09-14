@@ -8,25 +8,21 @@ export default function Detail() {
   const [loading, setLoading] = useState(true);
   const params = useParams();
 
-  // Consumiendo el parametro dinamico de la URL deberan hacer un fetch a un user en especifico
-  const getDentist = async () => {
-    const res = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${params.id}`
-    );
-    const data = await res.json();
-    setDentist(data);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    getDentist();
+    fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`)
+      .then((res) => res.json())
+      .then((data) => setDentist(data))
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   });
 
   return (
-    <main>
+    <main style={{ margin: "10vh 0px 30vh" }}>
       {dentist && !loading ? (
         <>
-          <h1>Detalle del dentista n.° {dentist.id} </h1>
+          <h1 style={{ fontSize: "24px", textAlign: "left" }}>
+            Detalle del dentista n.° {dentist.id}{" "}
+          </h1>
           <table>
             <thead>
               <tr>

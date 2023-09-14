@@ -6,11 +6,14 @@ ContextProvider.propTypes = {
   children: PropTypes.element,
 };
 
+const localFavs = JSON.parse(localStorage.getItem("favs"));
+const initialFavState = localFavs ? localFavs : [];
+
 const ContextGlobal = createContext();
 
 export default function ContextProvider({ children }) {
-  const [dentists, setDentists] = useState(null);
-  const [favs, setFavs] = useState(null);
+  const [dentists, setDentists] = useState([]);
+  const [favs, setFavs] = useState(initialFavState);
   const [theme, setTheme] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +27,11 @@ export default function ContextProvider({ children }) {
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favs", JSON.stringify(favs));
+    setLoading(false);
+  }, [favs]);
 
   return (
     <ContextGlobal.Provider

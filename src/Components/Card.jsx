@@ -1,31 +1,56 @@
 import PropTypes from "prop-types";
 //
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 //
 import doctor from "../assets/images/doctor.jpg";
+//
+import { useGlobalStates } from "../Context/global-context";
+//
+import { FaRegStar, FaTrashCan } from "react-icons/fa6";
 
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  dentist: PropTypes.object,
 };
 
-export default function Card({ name, username, id }) {
+export default function Card({ dentist }) {
+  const { favs, setFavs } = useGlobalStates();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const addFav = () => {
-    // Aqui iria la logica para agregar la Card en el localStorage
+    const duplicateDentist = favs.find((fav) => fav.id === dentist.id);
+
+    !duplicateDentist
+      ? (setFavs([...favs, dentist]),
+        alert("El destista seleccionado ha sido destacado."))
+      : alert("El destista seleccionado ya ha sido destacado.");
+  };
+
+  const deleteFav = () => {
+    const filteredFavs = favs.filter((fav) => fav.id !== dentist.id);
+
+    setFavs([...filteredFavs]);
+    alert("El dentista seleccionado ya no aparecerá destacado.");
   };
 
   return (
-    <div className="card" onClick={() => navigate("dentista/" + id)}>
-      <img width={200} src={doctor} alt="imagen de un dentista" />
-      <p>{name}</p>
-      <p>{username}</p>
+    <div className="card">
+      <div onClick={() => navigate("dentista/" + dentist.id)}>
+        <img width={200} src={doctor} alt="Imagen genérica de un dentista" />
+        <p>{dentist.name}</p>
+        <p>{dentist.username}</p>
+      </div>
 
-      {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
-      <button onClick={addFav} className="favButton">
-        ⭐
-      </button>
+      {pathname === "/" && (
+        <button onClick={addFav} className="favButton">
+          <FaRegStar style={{ fontSize: "18px" }} />
+        </button>
+      )}
+      {pathname === "/destacados" && (
+        <button onClick={deleteFav} className="favButton">
+          <FaTrashCan style={{ fontSize: "18px" }} />
+        </button>
+      )}
     </div>
   );
 }
