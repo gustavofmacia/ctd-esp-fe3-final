@@ -2,6 +2,8 @@
 import { useParams } from "react-router-dom";
 //
 import { useState, useEffect } from "react";
+//
+import LoadingText from "../Components/LoadingText";
 
 export default function Detail() {
   const [dentist, setDentist] = useState();
@@ -43,7 +45,7 @@ export default function Detail() {
           </table>
         </>
       ) : (
-        <p style={{ fontSize: "2rem" }}>Cargando detalle del dentista...</p>
+        <LoadingText />
       )}
     </main>
   );

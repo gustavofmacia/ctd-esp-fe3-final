@@ -1,6 +1,7 @@
 import { useGlobalStates } from "../Context/global-context";
 //
 import Card from "../Components/Card";
+import LoadingText from "../Components/LoadingText";
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
@@ -20,9 +21,7 @@ export default function Home() {
           ))}
         </div>
       ) : (
-        <p style={{ fontSize: "2rem", margin: "30vh" }}>
-          Cargando dentistas...
-        </p>
+        <LoadingText />
       )}
     </main>
   );
