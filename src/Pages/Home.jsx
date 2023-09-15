@@ -14,14 +14,14 @@ export default function Home() {
         <h1>Inicio</h1>
       </div>
 
-      {dentists && !loading ? (
+      {dentists && loading ? (
+        <LoadingText />
+      ) : (
         <div className="card-grid">
           {dentists.map((dentist) => (
             <Card key={dentist.id} dentist={dentist} />
           ))}
         </div>
-      ) : (
-        <LoadingText />
       )}
     </main>
   );
