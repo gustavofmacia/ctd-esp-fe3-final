@@ -18,7 +18,8 @@ export default function Card({ dentist }) {
 
   const navigate = useNavigate();
 
-  const addFav = () => {
+  const addFav = (e) => {
+    e.stopPropagation();
     const duplicateDentist = favs.find((fav) => fav.id === dentist.id);
 
     !duplicateDentist
@@ -27,7 +28,8 @@ export default function Card({ dentist }) {
       : alert("El destista seleccionado ya ha sido destacado.");
   };
 
-  const deleteFav = () => {
+  const deleteFav = (e) => {
+    e.stopPropagation();
     const filteredFavs = favs.filter((fav) => fav.id !== dentist.id);
 
     setFavs([...filteredFavs]);
