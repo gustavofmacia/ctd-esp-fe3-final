@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 //
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 //
 import doctor from "../assets/images/doctor.jpg";
 //
@@ -15,6 +15,8 @@ Card.propTypes = {
 export default function Card({ dentist }) {
   const { favs, setFavs } = useGlobalStates();
   const { pathname } = useLocation();
+
+  const navigate = useNavigate();
 
   const addFav = () => {
     const duplicateDentist = favs.find((fav) => fav.id === dentist.id);
@@ -33,13 +35,10 @@ export default function Card({ dentist }) {
   };
 
   return (
-    <div className="card">
-      {/* Con Link funciona la navegación desde la page home o destacados, ya que la ruta es tomada de forma absoluta. En cambio, con button onClick es tomada de forma relativa, entonces en destacados no funcionaría: */}
-      <Link to={`/dentista/${dentist.id}`}>
-        <img width={200} src={doctor} alt="Imagen genérica de un dentista" />
-        <p>{dentist.name}</p>
-        <p>{dentist.username}</p>
-      </Link>
+    <div className="card" onClick={() => navigate(`/dentista/${dentist.id}`)}>
+      <img width={200} src={doctor} alt="Imagen genérica de un dentista" />
+      <p>{dentist.name}</p>
+      <p>{dentist.username}</p>
 
       {pathname === "/" && (
         <button onClick={addFav} className="favButton">
