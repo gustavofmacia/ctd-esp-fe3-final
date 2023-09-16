@@ -21,7 +21,7 @@ const Favs = () => {
       )}
 
       {state.favs.length < 1 && (
-        <p style={{ fontSize: "2rem", margin: "10vh 0 40vh 20vh" }}>
+        <p style={{ fontSize: "2rem", margin: "10vh 0 52vh 20vh" }}>
           Aún no has destacado dentistas.
         </p>
       )}
