@@ -6,7 +6,8 @@ import LoadingText from "../Components/LoadingText";
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
 export default function Home() {
-  const { state, isLoadingDentists } = useGlobalStates();
+  const { state } = useGlobalStates();
+  console.log(state.loading);
 
   return (
     <main>
@@ -14,7 +15,7 @@ export default function Home() {
         <h1>Inicio</h1>
       </div>
 
-      {isLoadingDentists ? (
+      {state.loading ? (
         <LoadingText />
       ) : (
         <div className="card-grid">

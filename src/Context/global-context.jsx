@@ -1,12 +1,6 @@
 import PropTypes from "prop-types";
 //
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 ContextProvider.propTypes = {
   children: PropTypes.element,
@@ -30,6 +24,7 @@ const initialStates = {
   dentists: [],
   favs: initialFavState,
   theme: true,
+  loading: true,
 };
 
 const reducer = (state, action) => {
@@ -41,7 +36,9 @@ const reducer = (state, action) => {
     case "DELETE FAV":
       return { ...state, favs: [...action.payload] };
     case "SWITCH THEME":
-      return { ...state, theme: !state.theme };
+      return { ...state, theme: action.payload };
+    case "SWITCH LOADING":
+      return { ...state, loading: action.payload };
     default:
       throw new Error();
   }
@@ -51,26 +48,23 @@ const ContextGlobal = createContext();
 
 export default function ContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialStates);
-  const [isLoadingDentists, setIsLoadingDentists] = useState(true);
-  const [isLoadingFavs, setIsLoadingFavs] = useState(true);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) =>
         res.json().then((data) => {
           dispatch({ type: "GET DENTISTS", payload: data });
-          setIsLoadingDentists(false);
+          dispatch({ type: "SWITCH LOADING", payload: false });
         })
       )
       .catch((error) => {
-        setIsLoadingDentists(false);
+        dispatch({ type: "SWITCH LOADING", payload: false });
         console.log(error);
       });
   }, []);
 
   useEffect(() => {
     localStorage.setItem("favs", JSON.stringify(state.favs));
-    setIsLoadingFavs(false);
   }, [state.favs]);
 
   // const handleChangeTheme = () => {
@@ -83,8 +77,6 @@ export default function ContextProvider({ children }) {
       value={{
         state,
         dispatch,
-        isLoadingDentists,
-        isLoadingFavs,
       }}
     >
       {children}
