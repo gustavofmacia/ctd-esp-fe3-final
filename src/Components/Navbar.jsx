@@ -16,7 +16,7 @@ const Navbar = () => {
         <Link to="/destacados">
           <h4>Destacados</h4>
         </Link>
-        <button>Change theme</button>
+        <button>Cambiar tema</button>
       </div>
     </nav>
   );

@@ -13,26 +13,26 @@ Card.propTypes = {
 };
 
 export default function Card({ dentist }) {
-  const { favs, setFavs } = useGlobalStates();
+  const { state, dispatch } = useGlobalStates();
   const { pathname } = useLocation();
 
   const navigate = useNavigate();
 
   const addFav = (e) => {
     e.stopPropagation();
-    const duplicateDentist = favs.find((fav) => fav.id === dentist.id);
+    const duplicateDentist = state.favs.find((fav) => fav.id === dentist.id);
 
     !duplicateDentist
-      ? (setFavs([...favs, dentist]),
+      ? (dispatch({ type: "ADD FAV", payload: dentist }),
         alert("El destista seleccionado ha sido destacado."))
       : alert("El destista seleccionado ya ha sido destacado.");
   };
 
   const deleteFav = (e) => {
     e.stopPropagation();
-    const filteredFavs = favs.filter((fav) => fav.id !== dentist.id);
+    const filteredFavs = state.favs.filter((fav) => fav.id !== dentist.id);
 
-    setFavs([...filteredFavs]);
+    dispatch({ type: "DELETE FAV", payload: filteredFavs });
     alert("El dentista seleccionado ya no aparecerá destacado.");
   };
 

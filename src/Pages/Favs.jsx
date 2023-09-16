@@ -5,7 +5,7 @@ import { useGlobalStates } from "../Context/global-context";
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
 const Favs = () => {
-  const { favs, loading } = useGlobalStates();
+  const { state, isLoadingFavs } = useGlobalStates();
 
   return (
     <main>
@@ -13,17 +13,17 @@ const Favs = () => {
         <h1>Dentistas destacados</h1>
       </div>
 
-      {loading && <LoadingText />}
+      {isLoadingFavs && <LoadingText />}
 
-      {favs.length > 0 && !loading && (
+      {state.favs.length > 0 && !isLoadingFavs && (
         <div className="card-grid" style={{ marginBottom: "20vh" }}>
-          {favs.map((dentist) => (
+          {state.favs.map((dentist) => (
             <Card key={dentist.id} dentist={dentist} />
           ))}
         </div>
       )}
 
-      {favs.length < 1 && !loading && (
+      {state.favs.length < 1 && !isLoadingFavs && (
         <p style={{ fontSize: "2rem", margin: "10vh 0 40vh 20vh" }}>
           Aún no has destacado dentistas.
         </p>

@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 //
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 
 ContextProvider.propTypes = {
   children: PropTypes.element,
@@ -9,41 +15,76 @@ ContextProvider.propTypes = {
 const localFavs = JSON.parse(localStorage.getItem("favs"));
 const initialFavState = localFavs ? localFavs : [];
 
+// const themes = {
+//   light: {
+//     font: "black",
+//     background: "white",
+//   },
+//   dark: {
+//     font: "white",
+//     background: "black",
+//   },
+// };
+
+const initialStates = {
+  dentists: [],
+  favs: initialFavState,
+  theme: true,
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "GET DENTISTS":
+      return { ...state, dentists: action.payload };
+    case "ADD FAV":
+      return { ...state, favs: [...state.favs, action.payload] };
+    case "DELETE FAV":
+      return { ...state, favs: [...action.payload] };
+    case "SWITCH THEME":
+      return { ...state, theme: !state.theme };
+    default:
+      throw new Error();
+  }
+};
+
 const ContextGlobal = createContext();
 
 export default function ContextProvider({ children }) {
-  const [dentists, setDentists] = useState([]);
-  const [favs, setFavs] = useState(initialFavState);
-  const [theme, setTheme] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [state, dispatch] = useReducer(reducer, initialStates);
+  const [isLoadingDentists, setIsLoadingDentists] = useState(true);
+  const [isLoadingFavs, setIsLoadingFavs] = useState(true);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) =>
         res.json().then((data) => {
-          setDentists(data);
+          dispatch({ type: "GET DENTISTS", payload: data });
+          setIsLoadingDentists(false);
         })
       )
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
+      .catch((error) => {
+        setIsLoadingDentists(false);
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("favs", JSON.stringify(favs));
-    setLoading(false);
-  }, [favs]);
+    localStorage.setItem("favs", JSON.stringify(state.favs));
+    setIsLoadingFavs(false);
+  }, [state.favs]);
+
+  // const handleChangeTheme = () => {
+  //   if (theme === themes.dark) setTheme(themes.light);
+  //   if (theme === themes.light) setTheme(themes.dark);
+  // };
 
   return (
     <ContextGlobal.Provider
       value={{
-        dentists,
-        setDentists,
-        favs,
-        setFavs,
-        theme,
-        setTheme,
-        loading,
-        setLoading,
+        state,
+        dispatch,
+        isLoadingDentists,
+        isLoadingFavs,
       }}
     >
       {children}
