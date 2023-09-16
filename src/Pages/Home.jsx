@@ -7,7 +7,6 @@ import LoadingText from "../Components/LoadingText";
 
 export default function Home() {
   const { state } = useGlobalStates();
-  console.log(state.loading);
 
   return (
     <main>

@@ -50,6 +50,7 @@ export default function ContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialStates);
 
   useEffect(() => {
+    dispatch({ type: "SWITCH LOADING", payload: true });
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) =>
         res.json().then((data) => {

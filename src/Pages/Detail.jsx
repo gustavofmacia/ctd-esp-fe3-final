@@ -11,12 +11,13 @@ export default function Detail() {
   const params = useParams();
 
   useEffect(() => {
+    setLoading(true);
     fetch(`https://jsonplaceholder.typicode.com/users/${params.id}`)
       .then((res) => res.json())
       .then((data) => setDentist(data))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
-  });
+  }, [params.id]);
 
   return (
     <main style={{ margin: "10vh 0px 30vh" }}>
