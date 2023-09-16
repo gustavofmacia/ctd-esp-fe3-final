@@ -27,7 +27,7 @@ const Form = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} style={{ marginBottom: "60px" }}>
+      <form onSubmit={handleSubmit}>
         <input
           autoFocus
           type="text"
@@ -40,7 +40,7 @@ const Form = () => {
           placeholder="Ingresa tu casilla de correo electrónico"
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-        <button>Enviar</button>
+        <button style={{ cursor: "pointer" }}>Enviar</button>
       </form>
       {showInfo && (
         <div style={{ textAlign: "center" }}>

@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <main>
       <h1 style={{ marginBottom: "80px" }}>Contacto</h1>
-      <div style={{ marginBottom: "38vh" }}>
+      <div style={{ marginBottom: "49vh" }}>
         <Form />
       </div>
     </main>

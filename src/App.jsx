@@ -7,10 +7,13 @@ import Home from "./Pages/Home";
 import Contact from "./Pages/Contact";
 import Favs from "./Pages/Favs";
 import Detail from "./Pages/Detail";
+//
+import { useGlobalStates } from "./Context/global-context";
 
 export default function App() {
+  const { state } = useGlobalStates();
   return (
-    <div className="App">
+    <div className={state.themeDark ? "app dark" : "app"}>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />}></Route>

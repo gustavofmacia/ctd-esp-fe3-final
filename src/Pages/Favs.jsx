@@ -13,7 +13,7 @@ const Favs = () => {
       </div>
 
       {state.favs.length > 0 && (
-        <div className="card-grid" style={{ marginBottom: "20vh" }}>
+        <div className="card-grid" style={{ marginBottom: "27vh" }}>
           {state.favs.map((dentist) => (
             <Card key={dentist.id} dentist={dentist} />
           ))}

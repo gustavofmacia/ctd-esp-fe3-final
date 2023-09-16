@@ -20,7 +20,7 @@ export default function Detail() {
   }, [params.id]);
 
   return (
-    <main style={{ margin: "10vh 0px 30vh" }}>
+    <main style={{ margin: "10vh 0px 54vh" }}>
       {dentist && !loading ? (
         <>
           <h1 style={{ fontSize: "24px", textAlign: "left" }}>

@@ -23,7 +23,7 @@ const initialFavState = localFavs ? localFavs : [];
 const initialStates = {
   dentists: [],
   favs: initialFavState,
-  theme: true,
+  themeDark: false,
   loading: true,
 };
 
@@ -35,8 +35,8 @@ const reducer = (state, action) => {
       return { ...state, favs: [...state.favs, action.payload] };
     case "DELETE FAV":
       return { ...state, favs: [...action.payload] };
-    case "SWITCH THEME":
-      return { ...state, theme: action.payload };
+    case "TOGGLE THEME DARK":
+      return { ...state, themeDark: !state.themeDark };
     case "SWITCH LOADING":
       return { ...state, loading: action.payload };
     default:
